@@ -1,0 +1,101 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: elf_postgres
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-pass}
+      POSTGRES_DB: ${POSTGRES_DB:-elfanalyzer}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - elfnet
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-user} -d ${POSTGRES_DB:-elfanalyzer}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7-alpine
+    container_name: elf_redis
+    restart: unless-stopped
+    networks:
+      - elfnet
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ../api
+      dockerfile: Dockerfile
+    container_name: elf_api
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      # API needs read/write access to save incoming multipart uploads
+      - uploads:/app/uploads
+    ports:
+      - "3000:3000"
+    networks:
+      - elfnet
+
+  worker:
+    build:
+      context: ../worker
+      dockerfile: Dockerfile
+    container_name: elf_worker
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      # Worker bind mounts the binary directory read-only (:ro) per security spec
+      - uploads:/app/uploads:ro
+    networks:
+      - elfnet
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    container_name: elf_frontend
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    depends_on:
+      - api
+    ports:
+      - "80:80"
+    networks:
+      - elfnet
+
+networks:
+  elfnet:
+    driver: bridge
+
+volumes:
+  pgdata:
+    name: elf_pgdata
+  uploads:
+    name: elf_uploads

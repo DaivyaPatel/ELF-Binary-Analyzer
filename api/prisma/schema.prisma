@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String   @id @default(cuid())
+  email    String   @unique
+  password String
+  apiKey   String?  @unique
+  jobs     Job[]
+  reports  Report[]
+}
+
+model Job {
+  id        String   @id @default(uuid())
+  userId    String
+  filename  String
+  filePath  String
+  status    String   @default("queued")
+  createdAt DateTime @default(now())
+  report    Report?
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Report {
+  id                String   @id @default(uuid())
+  jobId             String   @unique
+  userId            String
+  public            Boolean  @default(false)
+  elfHeader         Json
+  sections          Json
+  programHeaders    Json
+  symbols           Json
+  mitigations       Json
+  entropy           Json
+  suspiciousStrings Json
+  createdAt         DateTime @default(now())
+
+  // Relation references required by Prisma for Job and User models
+  job               Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

@@ -1,0 +1,19 @@
+{
+  "name": "elf-binary-analyzer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ELF Binary Analyzer monorepo for static analysis",
+  "author": "Daivya Patel",
+  "workspaces": [
+    "api",
+    "frontend"
+  ],
+  "scripts": {
+    "dev:api": "npm run dev --workspace=api",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "install:all": "npm install && cd worker && python -m venv venv && source venv/bin/activate && pip install -r requirements.txt"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
