@@ -6,15 +6,15 @@ A full-stack web platform for static analysis of ELF binaries. Upload any Linux 
 
 ## What It Does
 
-- **ELF Header parsing** — class, endianness, entry point, machine type, OS/ABI
-- **Section & segment table** — full breakdown of all sections and program headers
-- **Symbol table** — imported and exported functions with binding and type info
-- **Security mitigation detection** — NX, PIE, Full/Partial RELRO, Stack Canary, RPATH
-- **Entropy analysis** — per-section Shannon entropy with packed/encrypted section flagging (threshold: 7.0)
-- **Suspicious string extraction** — regex-matched IPs, URLs, shell commands, file paths, crypto constants
-- **Persistent history** — every analysis run stored per user, searchable and re-openable
-- **Shareable reports** — public report links require no login to view
-- **REST API** — full programmatic access via API key
+- **ELF Header parsing** - class, endianness, entry point, machine type, OS/ABI
+- **Section & segment table** - full breakdown of all sections and program headers
+- **Symbol table** - imported and exported functions with binding and type info
+- **Security mitigation detection** - NX, PIE, Full/Partial RELRO, Stack Canary, RPATH
+- **Entropy analysis** - per-section Shannon entropy with packed/encrypted section flagging (threshold: 7.0)
+- **Suspicious string extraction** - regex-matched IPs, URLs, shell commands, file paths, crypto constants
+- **Persistent history** - every analysis run stored per user, searchable and re-openable
+- **Shareable reports** - public report links require no login to view
+- **REST API** - full programmatic access via API key
 
 ---
 
