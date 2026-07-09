@@ -218,14 +218,3 @@ See [Security & Access Document](docs/03_Security_Access_Document.docx) for the 
 | Public report requests | 60 per min per IP |
 
 ---
-
-## Built By
-
-**Daivya Patel** — BTech CSE (IoT & Cybersecurity), DJSCE Mumbai  
-[GitHub](https://github.com/DaivyaPatel) · [LinkedIn](https://linkedin.com/in/daivya-patel-31a13123a/)
-
----
-
-## License
-
-MIT
