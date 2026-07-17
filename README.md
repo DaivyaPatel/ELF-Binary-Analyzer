@@ -1,6 +1,6 @@
 # ELF Binary Analyzer
 
-A full-stack web platform for static analysis of ELF binaries. Upload any Linux ELF executable and get a structured, shareable report covering security mitigations, entropy analysis, symbol tables, and suspicious string extraction — all without a local toolchain.
+A full-stack web platform for static analysis of ELF binaries. Upload any Linux ELF executable and get a structured, shareable report covering security mitigations, entropy analysis, symbol tables, and suspicious string extraction - all without a local toolchain.
 
 ---
 
