@@ -203,7 +203,6 @@ curl http://localhost:3000/api/jobs/$JOB_ID \
 - File magic byte validation before any processing
 - Upload directory never exposed as a static route
 
-See [Security & Access Document](docs/03_Security_Access_Document.docx) for the full threat model.
 
 ---
 
