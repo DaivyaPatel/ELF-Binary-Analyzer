@@ -210,7 +210,7 @@ curl http://localhost:3000/api/jobs/$JOB_ID \
 
 | Resource | Limit |
 |---|---|
-| Max upload size | 50MB |
+| Max upload size | 50 MB |
 | Uploads per hour | 20 per user |
 | Analysis timeout | 30 seconds |
 | Login attempts | 10 per 15 min per IP |
